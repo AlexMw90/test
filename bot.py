@@ -1,11 +1,16 @@
+import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, filters, ContextTypes
 import sqlite3
 import pandas as pd
-import os
+		 
 import sys
 
-TOKEN = "7576651813:AAFe2vu-HaojRWQp7ca6KUV1IgEso866t0Q"
+# Recupera il token dalla variabile d'ambiente
+TOKEN = os.getenv("TELEGRAM_TOKEN")
+
+if not TOKEN:
+    raise ValueError("Il token di Telegram non è stato trovato nelle variabili d'ambiente!")
 
 def connect_db():
     return sqlite3.connect("prices.db", check_same_thread=False)
